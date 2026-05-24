@@ -9,31 +9,66 @@
     body {
       font-family: Arial, sans-serif;
       line-height: 1.6;
-      margin: 40px;
-      max-width: 900px;
+      margin: 40px auto; /* Sayfayı ortalamak için auto eklendi */
+      max-width: 750px; /* İçeriğin çok yayılmaması ve ortalı durması için ideal genişlik */
       color: #222;
+      padding: 0 20px;
     }
+    
     h1, h2 {
       color: #111;
     }
+
     .box {
+      margin-top: 40px;
       margin-bottom: 40px;
-      padding: 20px;
+      padding: 30px;
       border: 1px solid #ddd;
       border-radius: 10px;
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05); /* Daha modern bir görünüm için hafif gölge */
     }
-    .lang {
+
+    /* Sağ üst köşedeki buton alanı */
+    .lang-switcher {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+
+    .lang-btn {
+      background-color: #111;
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
       font-size: 14px;
-      color: gray;
-      margin-bottom: 10px;
+      font-weight: bold;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .lang-btn:hover {
+      background-color: #333;
+    }
+
+    /* JavaScript ile dilleri gizleyip göstermek için sınıflar */
+    .hidden {
+      display: none;
     }
   </style>
 </head>
 
 <body>
 
+  <div class="lang-switcher">
+    <button class="lang-btn" id="langBtn" onclick="toggleLanguage()">TR</button>
+  </div>
+
   <!-- ENGLISH -->
-  <div class="box">
+  <div id="en-content" class="box">
     <h1>Privacy Policy</h1>
     <p><strong>Last Updated:</strong> 24 May 2026</p>
 
@@ -76,7 +111,7 @@
   </div>
 
   <!-- TURKISH -->
-  <div class="box">
+  <div id="tr-content" class="box hidden">
     <h1>Gizlilik Politikası</h1>
     <p><strong>Son Güncelleme:</strong> 24 Mayıs 2026</p>
 
@@ -115,8 +150,25 @@
     <p>
       Sorularınız için: <strong>mudesirakyuz@gmail.com</strong>
     </p>
-
   </div>
+
+  <script>
+    function toggleLanguage() {
+      const enContent = document.getElementById('en-content');
+      const trContent = document.getElementById('tr-content');
+      const langBtn = document.getElementById('langBtn');
+
+      if (enContent.classList.contains('hidden')) {
+        enContent.classList.remove('hidden');
+        trContent.classList.add('hidden');
+        langBtn.textContent = 'TR';
+      } else {
+        enContent.classList.add('hidden');
+        trContent.classList.remove('hidden');
+        langBtn.textContent = 'EN';
+      }
+    }
+  </script>
 
 </body>
 </html>
